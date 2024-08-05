@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Movie App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a React application that displays a paginated list of movies, allows users to search for movies and view single movie details.
 
 ## Available Scripts
 

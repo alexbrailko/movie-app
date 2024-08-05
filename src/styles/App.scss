@@ -1,0 +1,9 @@
+@import './variables';
+
+.app {
+  font-family: 'Arial, sans-serif';
+  color: $text-color;
+  background-color: $background-color;
+  min-height: 100vh;
+  padding: 20px;
+}
