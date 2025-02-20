@@ -1,48 +1,60 @@
 @import './variables';
 
-.movie-details-wrapper {
-  padding: 2rem;
-  background-color: $background-color;
-  max-width: 800px;
-  margin: 0 auto;
+.movie-details {
+  &-wrapper {
+    padding: 2rem;
+    background-color: #fff;
+    max-width: 800px;
+    margin: 0 auto;
 
-  @media screen and (max-width: $mobile) {
-    padding: 0;
+    @media screen and (max-width: $mobile) {
+      padding: 0;
+    }
   }
 
-  .back-button {
+  &__back-button {
     color: $primary-color;
     text-decoration: none;
     margin-bottom: 1rem;
     display: block;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
-  .movie-details {
+  &__container {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  img {
-    width: 300px;
+  &__poster {
+    width: 400px;
     height: auto;
     border-radius: $border-radius;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
 
     @media screen and (max-width: $mobile) {
       width: 100%;
     }
   }
 
-  .movie-info {
+  &__info {
     margin-top: 1rem;
     text-align: center;
 
-    h2 {
+    &-title {
       color: $text-color;
       margin-bottom: 0.5rem;
     }
 
-    p {
+    &-overview {
       color: $secondary-color;
       line-height: 1.5;
     }

@@ -69,6 +69,9 @@ const moviesSlice = createSlice({
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload;
     },
+    clearMovie: (state) => {
+      state.movie = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -117,4 +120,4 @@ const moviesSlice = createSlice({
 });
 
 export default moviesSlice.reducer;
-export const { setCurrentPage } = moviesSlice.actions;
+export const { setCurrentPage, clearMovie } = moviesSlice.actions;

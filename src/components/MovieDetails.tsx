@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { fetchMovie } from '../store/moviesSlice';
+import { clearMovie, fetchMovie } from '../store/moviesSlice';
 import '../styles/MovieDetails.scss';
 import { RootState, useAppDispatch } from '../store/store';
+import { Loading } from './common/Loading';
 
 const MovieDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,23 +14,28 @@ const MovieDetails: React.FC = () => {
   );
 
   useEffect(() => {
+    dispatch(clearMovie());
     dispatch(fetchMovie(Number(id)));
   }, [dispatch, id]);
 
-  const posterUrl = `https://image.tmdb.org/t/p/w500${movie?.poster_path}`;
+  const posterUrl = movie?.poster_path
+    ? `https://image.tmdb.org/t/p/w400${movie.poster_path}`
+    : '';
 
   return (
     <div className="movie-details-wrapper">
-      <Link className="back-button" to="/">
+      <Link className="movie-details__back-button" to="/">
         &#x2190; Back
       </Link>
-      {loading && <div className="text-center">Loading...</div>}
+      {loading && <Loading />}
       {!!movie && (
-        <div className="movie-details">
-          <img src={posterUrl} alt={movie.title} />
-          <div className="movie-info">
-            <h2>{movie.title}</h2>
-            <p>{movie.overview}</p>
+        <div className="movie-details__container">
+          <div className="movie-details__poster">
+            <img src={posterUrl} alt={movie.title} loading="lazy" />
+          </div>
+          <div className="movie-details__info">
+            <h2 className="movie-details__info-title">{movie.title}</h2>
+            <p className="movie-details__info-overview">{movie.overview}</p>
           </div>
         </div>
       )}

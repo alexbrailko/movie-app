@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { fetchMovies, setCurrentPage } from '../store/moviesSlice';
-import MovieItem from './MovieItem';
+import { MovieItem } from './MovieItem';
 import Pagination from './Pagination';
 import { RootState, useAppDispatch } from '../store/store';
 import '../styles/MovieList.scss';
+import { Loading } from './common/Loading';
 
 const MovieList: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +14,7 @@ const MovieList: React.FC = () => {
     useSelector((state: RootState) => state.movies);
 
   useEffect(() => {
-    dispatch(fetchMovies(Math.ceil(currentPage / 2)));
+    dispatch(fetchMovies(currentPage));
   }, [dispatch, currentPage]);
 
   const handlePageChange = (page: number) => {
@@ -25,12 +26,12 @@ const MovieList: React.FC = () => {
   const currentMovies = movies.slice(startIndex, endIndex);
 
   return (
-    <div className="movie-list-container">
-      {loading && <div>Loading...</div>}
+    <div className="movies">
+      {loading && <Loading />}
       {!!currentMovies.length && (
-        <div className="movie-list">
+        <div className="movies__list">
           {currentMovies.map((movie) => (
-            <MovieItem key={movie.id} {...movie} />
+            <MovieItem key={movie.id} {...movie} className="movies__item" />
           ))}
         </div>
       )}
@@ -43,6 +44,7 @@ const MovieList: React.FC = () => {
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={handlePageChange}
+          className="movies__pagination"
         />
       )}
     </div>

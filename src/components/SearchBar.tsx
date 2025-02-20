@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { fetchMovies, searchMovies } from '../store/moviesSlice';
 import { useAppDispatch } from '../store/store';
 import debounce from 'lodash/debounce';
@@ -7,12 +7,14 @@ import '../styles/SearchBar.scss';
 const SearchBar: React.FC = () => {
   const [query, setQuery] = useState('');
   const dispatch = useAppDispatch();
+  const hasTyped = useRef(false);
 
   const debouncedSearch = useCallback(
     debounce((searchQuery: string) => {
       if (searchQuery.length > 2) {
         dispatch(searchMovies(searchQuery));
-      } else if (searchQuery.length === 0) {
+      }
+      if (!searchQuery.length && hasTyped.current) {
         dispatch(fetchMovies(1));
       }
     }, 300),
@@ -26,11 +28,12 @@ const SearchBar: React.FC = () => {
   }, [query, debouncedSearch]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    hasTyped.current = true;
     setQuery(e.target.value);
   };
 
   return (
-    <div className="search-bar">
+    <div className="searchbar">
       <input
         type="text"
         value={query}

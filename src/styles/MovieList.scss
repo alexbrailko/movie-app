@@ -1,47 +1,91 @@
 @import './variables';
 
-.movie-list-container {
+.movies {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 1rem;
-}
+  position: relative;
 
-.movie-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
-  width: 100%;
-  max-width: 1200px;
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    width: 100%;
+    max-width: 1200px;
 
-  @media screen and (max-width: $mobile) {
-    display: block;
+    @media screen and (max-width: $mobile) {
+      display: block;
+    }
   }
-}
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1rem;
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
 
-  button {
-    background-color: $primary-color;
-    border: none;
-    color: white;
-    padding: 0.5rem 1rem;
-    margin: 0 0.5rem;
-    border-radius: $border-radius;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    button {
+      background-color: $primary-color;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      margin: 0 0.5rem;
+      border-radius: $border-radius;
+      cursor: pointer;
+      transition: background-color 0.3s;
 
-    &:hover {
-      background-color: darken($primary-color, 10%);
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+
+      &:disabled {
+        background-color: $secondary-color;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem;
+    text-align: center;
+
+    @media screen and (max-width: $mobile) {
+      margin: 0 0 20px;
     }
 
-    &:disabled {
-      background-color: $secondary-color;
-      cursor: not-allowed;
+    img {
+      width: 200px;
+      height: auto;
+      border-radius: $border-radius;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+
+      @media screen and (max-width: $mobile) {
+        width: 100%;
+      }
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    h3 {
+      margin-top: 1rem;
+      margin-bottom: 0;
+      color: $text-color;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      @media screen and (max-width: $mobile) {
+        width: 100%;
+      }
     }
   }
 }
